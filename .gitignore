@@ -1,0 +1,62 @@
+# Allowlist strategy: ignore everything at the root of ~/.claude, then opt in
+# deliberately. New runtime/cache files from future Claude Code updates stay
+# invisible by default — nothing leaks unless explicitly un-ignored below.
+#
+# The leading slash anchors to the repo root, so these patterns ignore ONLY
+# top-level entries. Contents of re-included directories (memory/, skills/) are
+# NOT ignored, because we never excluded anything inside them.
+#
+# NOTE: gitignore has no trailing/inline comments — a '#' only starts a comment
+# at the START of a line. Keep every pattern on its own bare line.
+
+/*
+
+# --- opt back in (each on its own line, no trailing comments) ---
+
+# global mentor instructions
+!/CLAUDE.md
+# shared config (NOT settings.local.json — that stays machine-local)
+!/settings.json
+# status line script
+!/statusline.sh
+# hook scripts referenced from settings.json (session-start ledger state) + fixture tests
+!/hooks/
+# validators, secret scan, packaging
+!/scripts/
+# custom slash commands (if present)
+!/commands/
+# global learning ledger
+!/memory/
+# mentor skill state: plans, journals, lessons per project
+!/mentor/
+# hand-made skills (mentor, teach, ...)
+!/skills/
+# design docs and specs
+!/docs/
+# repo map and review views
+!/README.md
+# this file
+!/.gitignore
+
+# --- never, even inside opted-in directories ---
+# Claude Code's downloaded copy of Anthropic's built-in skills (docx, pptx, pdf, ...).
+# Re-synced on every start; not ours, not hand-made.
+/skills/synced/
+.DS_Store
+Thumbs.db
+*.orig
+*.swp
+# packaged shareable zip (built by scripts/package-shareable.sh)
+/claude-config-shareable.zip
+# private state that must stay local even if a future split creates it next to this repo
+/claude-state-private/
+
+# Explicitly NOT tracked (sensitive / machine-local / churn) — already covered
+# by /* above, listed here only as documentation of intent:
+#   projects/             full conversation transcripts (mode 700) — secrets, code
+#   history.jsonl         raw prompt history (mode 600)
+#   file-history/         backups of edited files
+#   plugins/              re-installable bulk
+#   settings.local.json   machine-local overrides
+#   cache/ backups/ paste-cache/ shell-snapshots/ sessions/ session-env/
+#   daemon* tasks/ jobs/ stats-cache.json   runtime state

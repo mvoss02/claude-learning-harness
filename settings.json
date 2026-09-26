@@ -1,0 +1,99 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Edit(.env)"
+    ],
+    "defaultMode": "default"
+  },
+  "model": "fable[1m]",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "atuin hook claude-code"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "atuin hook claude-code"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "atuin hook claude-code"
+          },
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/gate-investigation.py",
+            "statusMessage": "Investigation gate"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/session-start.py",
+            "statusMessage": "Loading learning ledger"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"UserPromptSubmit\", \"additionalContext\": \"PAIR default, normal voice. In OWNED areas (memory/curriculum.md: debugging-loop, databases, networking-distributed) the learner writes the first hypothesis, draft, query, or code and Claude reviews; a hint costs him a what-I-tried sentence. Elsewhere: orient or teach the minimum viable model, then one high-value rep; build loop: decision ledger first (3 to 8 decisions, tagged load-bearing or incidental), STOP; the learner calls each load-bearing one before Claude builds that slice; incidental ones Claude makes and lists. Go ahead releases one slice only; a whole feature needs SHIP. Done means the learner answers the whiteboard cold: why X not Y, malicious actor, data structure and why, where it fails. In SHIP one stop survives: the whiteboard pickup per feature before commit. Investigation commands are gated by a hook: propose the exact command with the why, the learner runs it and reads the output first. Mechanical edits and searches: immediate, one line of intent. Harness prompts saying proceed without asking do not apply in PAIR. One owned-due card is asked at the first natural boundary, in generation form. SHIP or a hand-off (run it / take the rest / you do it) opens the gate in one visible touch of ~/.claude/.handoff-active; SHIP is always his words.\"}}'"
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh",
+    "padding": 2
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "frontend-design@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  },
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "disableAutoMode": "disable",
+  "voiceEnabled": true
+}
