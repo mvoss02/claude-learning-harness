@@ -2,6 +2,8 @@
 
 Date: 2026-09-13. Status: PROPOSAL, awaiting the learner's decisions (section 5).
 
+Amended 2026-10-04 (history below is unchanged): the mechanisms M1, M2, M4, M5 stand. The contract around them was simplified to ten invariants. SHIP is entered only through the `/ship` command and is bounded; "run it" opens the gate for one proposed command and no longer changes mode. The decision ledger, valves, feature walkthrough, and four-question whiteboard gate were folded into one loop (Frame → Decide → Build → Trace → Continue). M3 now means the learner's hypothesis, design, or query comes first in owned areas; Claude may type the implementation. Retrieval only targets what the learner decided, reasoned through, or learned.
+
 ## 1. Why
 
 Goal stated by the learner: stay a valuable engineer while building with AI daily. Concretely: be able to tell when the AI is wrong before users do, diagnose under ambiguity, own consequences.

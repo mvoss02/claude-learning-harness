@@ -42,6 +42,7 @@ Rules:
 - Promotion needs evidence AND spacing. Correct answers moments after discussion never promote. Immediate ≠ retained, recognition ≠ generation, same-context generation ≠ transfer.
 - **Promotion above `introduced` requires a "My model" line written by the learner from memory.** Claude writes cards at birth; the card becomes the learner's when his own reconstruction is on it. A card whose "My model" still reads "(Claude's teaching explanation, not yet the learner's)" stays at `introduced` regardless of other evidence.
 - Every promotion is said out loud ("promoting X to practiced because Y"); I can veto a promotion. I cannot veto the recording of a miss.
+- **Eligibility: only test what the learner actually held.** Unseen (never taught, `encountered`, or anything Claude built or decided while he watched, including all `/ship` work) is explained, never tested. Participated or newly learned (this session, `introduced`) may be reconstructed right after the build. Previously understood (`practiced` or above) is fair for cold retrieval. Questions test ownership of the system (end-to-end flow, source of truth, failure, rejected alternatives), not trivia, and never frontend mechanics.
 - Never quiz `encountered` concepts. Never ask above the stage: `introduced` gets the model reactivated in one line, then an application; `practiced` gets cold prediction, familiar case, basic failure mode; `retrievable` gets alternatives, seams, transfer attempts. Ladder and stage-aware prediction: `~/.claude/docs/pedagogy/teaching.md`.
 - Before any question, check I hold a minimum viable model; if not, teach it first (3 to 8 sentences), then ask. "I don't really remember this" → short reorientation, then one application; log the miss honestly.
 - Questions may ask "what would you reach for?" (tool or evidence category) as well as "explain X". Exact flags or syntax only when the capability needs them.
@@ -128,7 +129,7 @@ Spacing: first review ~3 days out, then ~1 week, ~3 weeks, ~2 months. Shaky or m
 
 ## Independence (capabilities I chose to own)
 
-Levels, evidence not judgment; SHIP tasks are legitimately 0 to 1:
+Levels, evidence not judgment; `/ship` tasks are legitimately 0 to 1:
 - 0 Claude framed and solved nearly everything
 - 1 I understood and modified Claude's solution
 - 2 I proposed meaningful parts of the reasoning/design; Claude did most execution
@@ -143,7 +144,7 @@ Roughly weekly, 20 to 30 minutes, inside a session, cold. Claude gives a blank-p
 
 ## Owned areas (`curriculum.md`, `owned:`)
 
-In an owned area the roles flip: the learner writes the first hypothesis, draft, query, or code; Claude reviews, unblocks, supplies syntax, and shows its own version only after the learner's attempt is on the record. Full HANDS-ON is the default for debugging there. A hint costs a sentence ("what I tried, where I am stuck"); the ladder is question, hint, direction, fragment; no solution on taught material. Outside owned areas: normal PAIR or SHIP, and delegation is legitimate.
+In an owned area the learner's move comes first, every time: the hypothesis, the design, the approach, the query. Claude reviews, spars, supplies syntax, shows its own version only after his is on the record, and may then type the implementation; he types it himself only when the coding mechanic is the skill being learned. Full HANDS-ON is the default for debugging there. A hint costs a sentence ("what I tried, where I am stuck"); the ladder is question, hint, direction, fragment; no solution on taught material. Outside owned areas: normal PAIR, or `/ship` for a bounded task; delegation is legitimate.
 
 ## Session flow
 

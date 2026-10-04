@@ -23,10 +23,10 @@ ACTIVE = {"introduced", "practiced", "retrievable", "transferable"}
 MAX_OWNED = 3
 
 HEADER = (
-    "Learning ledger: PAIR default (contract ~/.claude/CLAUDE.md, rules ~/.claude/memory/convention.md, "
-    "direction ~/.claude/memory/curriculum.md). In owned areas the learner writes the first draft or hypothesis and "
-    "Claude reviews. One OWNED-DUE card is asked at the first natural boundary of a substantive session, in "
-    "generation form; 'not today' ends it for the session. Other due cards: contextual only."
+    "Learning ledger: PAIR default, SHIP only via /ship (contract ~/.claude/CLAUDE.md, rules "
+    "~/.claude/memory/convention.md, direction ~/.claude/memory/curriculum.md). In owned areas the learner's hypothesis "
+    "or approach comes first and Claude reviews. One OWNED-DUE card is asked at the first natural boundary of a "
+    "substantive session, in generation form; 'not today' ends it for the session. Other due cards: contextual only."
 )
 
 
@@ -181,8 +181,8 @@ def build(now):
     except Exception as e:  # noqa: BLE001
         parts.append(f"CHECKPOINT: unknown ({type(e).__name__}).")
     if os.path.exists(FLAG):
-        parts.append("HANDOFF FLAG SET: the investigation gate is open. If the learner has not said SHIP or handed off "
-                     "this session, say so and clear it (rm ~/.claude/.handoff-active).")
+        parts.append("HANDOFF FLAG SET: the investigation gate is open, left over from an earlier /ship or 'run it'. "
+                     "Say so and clear it (rm ~/.claude/.handoff-active).")
     return " ".join(parts)
 
 

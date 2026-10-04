@@ -2,6 +2,8 @@
 
 Read when a genuinely new concept is going to be taught (LEARN, mentor, PAIR TEACH state, or on request), or when a retrieval review is due. CLAUDE.md has the summary; this is the playbook.
 
+The default is learning inside real engineering, not interrupting it. "Explain this", "teach me this", "I don't know this", "why does this work?" in the middle of work get the minimum viable model below (intuition, how it applies here, one concrete example) and then the build continues; depth is offered in one line, not imposed. The full progression and the session lesson further down are for when the capability itself is the goal.
+
 ## Philosophy
 
 Old rule: "don't give the answer." Insufficient. A tutor can withhold answers and still teach badly. A tutor can also ask excellent questions about things the learner has never been shown, which is just a slower way of withholding.
@@ -10,7 +12,7 @@ Rule: **Orient → Teach → Model → Practice together → Fade scaffolding �
 
 ## Struggle budget: hard on the material, frictionless on logistics
 
-Desirable difficulty works only when the difficulty sits on the thing being learned [Bjork 1994]. Struggle on logistics is pure cost: it burns the working memory and time the material needs, and it is the struggle that makes people reach for SHIP.
+Desirable difficulty works only when the difficulty sits on the thing being learned [Bjork 1994]. Struggle on logistics is pure cost: it burns the working memory and time the material needs, and it is the struggle that makes people reach for `/ship`.
 
 | Material (mine, keep it hard) | Logistics (Claude, zero friction) |
 |---|---|
@@ -20,7 +22,7 @@ Desirable difficulty works only when the difficulty sits on the thing being lear
 | decomposition, boundaries, tradeoffs | environment, tooling, installs, cluster access, credentials |
 | predictions, interpreting key evidence | fixtures, test scaffolding, running verification suites, formatting |
 | blank-page reconstruction, transfer | writing cards, journals, solo specs, index updates |
-| choosing the tool or evidence category | syntax, flags, exact queries, running the command |
+| choosing the tool or evidence category; running an investigation and reading its raw output first | syntax, flags, exact queries; running routine implementation commands |
 
 Rule of thumb: if I am stuck and the stuck thing is not what today is about, Claude unblocks in one move and says what it did. If the stuck thing is today's material, ladder (question → hint → direction → fragment). Logistics move into the material column only when setup, access, or tool operation is itself a capability I explicitly chose to own; there is no per-area quota.
 
@@ -62,7 +64,7 @@ Worked examples are legitimate: Claude explains A, we modify A together, I predi
 
 ## LEARN, session tier (a real lesson in chat)
 
-"Teach me X" for one concept or a topic of 20 to 90 minutes, no repo milestone, no journal. Claude first names the tier: session tier here, or mentor-sized (a capability built into a real repo over several sessions, which I start with `/mentor`); I confirm. A session lesson has a shape, not a form:
+I ask for a lesson: one concept or a topic of 20 to 90 minutes, no repo milestone, no journal. Entered only when the lesson is the goal ("give me a lesson on X", "I want to really learn X"), never inferred from "teach me this" during a build. When it is unclear which I mean, Claude gives the minimum model and offers the lesson in one line. Claude names the tier: session tier here, or mentor-sized (a capability built into a real repo over several sessions, which I start with `/mentor`); I confirm. A session lesson has a shape, not a form:
 
 1. **Prerequisite check** in one or two lines (ledger, this session, what the concept presupposes). Missing pieces first.
 2. **Orientation**: the problem it solves, where it sits among its neighbours (solution space), why an engineer cares.
@@ -100,11 +102,21 @@ Ladder:
 
 Avoid trivia and implementation details not essential to the mental model. Prefer retrieval around mental models, causal reasoning, boundaries, tradeoffs, debugging strategy, failure behaviour, invariants, how to find an answer, and which tool or evidence category fits. Relaxed about exact API names, flags, syntax, obscure internals unless the capability needs them. Test: could I solve this with documentation but without an LLM?
 
+**Ownership questions come first.** The retrieval that matters most is whether I can own the system: "walk me through this feature end to end", "why does this component exist?", "where is the source of truth?", "what happens if X becomes unavailable?", "why did we choose this boundary?", "which assumption is this architecture making?", "at 100x traffic, where would you look first?", "how would you debug this symptom?", "which alternative did we reject, and why?". System models, reasoning, debugging, trade-offs, and design over trivia. Frontend implementation (HTML, CSS, JS/TS, framework mechanics) is never asked unless it has become an architectural or debugging problem.
+
 One review tests one coherent capability. If a card's recall question needs four separate mechanisms, the card is too wide: split it (`convention.md`).
 
 ## No surprise examinations
 
-Never test as though I was taught something the system merely encountered or recorded.
+Never test as though I was taught something the system merely encountered or recorded. A retrieval question is only worth asking about something I once held. Three states decide what is fair:
+
+| State | Means | Fair |
+|---|---|---|
+| **Unseen** | never taught; a card still `encountered`; architecture or code Claude created while I watched | teach or explain, never test |
+| **Participated or newly learned** | I took part in the decision, reasoned through the mechanism, or was taught it this session; `introduced` | a reconstruction after the implementation, when useful |
+| **Previously understood** | I explained or used it successfully before; `practiced` or above | cold retrieval later |
+
+Watching Claude build something is not learning it. A question about work Claude did alone tests whether I absorbed Claude's output, which is not retrieval practice. That includes everything shipped under `/ship`: it stays unseen until I pick it up in PAIR.
 
 Avoid: "We discovered X. Added it to your store. Now explain obscure property Y of X."
 Prefer: "We just encountered X. You don't need it yet. It matters here because of Y. Want the short mental model, or keep moving?" Then teach it properly if appropriate.
@@ -161,7 +173,7 @@ One or two sentences. Not a survey course.
 
 **Why this tool.** Selective. When Claude uses a non-obvious command, library, pattern, or primitive: category, why it fits, the obvious alternative, why not that one. Never for `grep`.
 
-**Protect selection, not syntax.** When the choice of tool or evidence category teaches judgment, I reason about the category ("DNS lookup, then HTTP request"; "a throttling metric, not request latency"). Claude supplies the command, flags, or query, and runs it.
+**Protect selection, not syntax.** When the choice of tool or evidence category teaches judgment, I reason about the category ("DNS lookup, then HTTP request"; "a throttling metric, not request latency"). Claude supplies the exact command, flags, or query. When the output is evidence in a debugging or owned-area investigation, I run it, inspect the raw result first, and say what I think it means; only then does Claude challenge, correct, or extend (CLAUDE.md, "Investigation"). Routine commands with nothing to learn Claude just runs.
 
 **Three levels of retention.** Decide which one a thing deserves, in passing, without metadata:
 
@@ -220,7 +232,7 @@ Failure mode to watch: I understand Claude's explanation perfectly while reading
 
 ## Programming-specific moves
 
-When the concept is code: runtime picture before syntax (what is copied, what is shared, what blocks; most novice bugs are wrong runtime models [Sorva 2013]). Before I modify code I did not just write, one-sentence purpose first; if I narrate lines, trace one input [Lister/Whalley]. Worked examples carry 3 to 5 purpose labels; after two, I label the third [Margulieux]. Interference points from a language I know get an explicit "X says A, Y says B" and a predict-from-the-old-model moment [Shrestha 2020]. Parsons problems (reorder a shuffled correct toy) when the idiom is new and I would otherwise copy. Generated code enters my repo only after I explain it and predict one edge case [Prather 2024]. End a session on something I generated (teach it back, two naive follow-ups), never on reading [Dunlosky 2013; Fiorella & Mayer 2015]. Retention target: retrieved correctly in about three sessions on different days [Rawson & Dunlosky], a target not a law; one strong transfer outweighs recall checks; a miss is classified (central model / detail / terminology / syntax / ambiguous question / other sub-concept) before it counts. A confident wrong prediction is retested within a week. Early learning in a new technology is chopped fine: one model, one piece of syntax or tooling, one guided and one independent application per unit, tests from the first pure function on; features that combine them come after.
+When the concept is code: runtime picture before syntax (what is copied, what is shared, what blocks; most novice bugs are wrong runtime models [Sorva 2013]). Before I modify code I did not just write, one-sentence purpose first; if I narrate lines, trace one input [Lister/Whalley]. Worked examples carry 3 to 5 purpose labels; after two, I label the third [Margulieux]. Interference points from a language I know get an explicit "X says A, Y says B" and a predict-from-the-old-model moment [Shrestha 2020]. Parsons problems (reorder a shuffled correct toy) when the idiom is new and I would otherwise copy. In LEARN, generated code enters my repo only after I explain it and predict one edge case [Prather 2024]; in PAIR the Trace step does that job at the level of the unit, not the line. End a session on something I generated (teach it back, two naive follow-ups), never on reading [Dunlosky 2013; Fiorella & Mayer 2015]. Retention target: retrieved correctly in about three sessions on different days [Rawson & Dunlosky], a target not a law; one strong transfer outweighs recall checks; a miss is classified (central model / detail / terminology / syntax / ambiguous question / other sub-concept) before it counts. A confident wrong prediction is retested within a week. Early learning in a new technology is chopped fine: one model, one piece of syntax or tooling, one guided and one independent application per unit, tests from the first pure function on; features that combine them come after.
 
 ## Have me author the concept
 

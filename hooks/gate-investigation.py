@@ -7,8 +7,9 @@ rule loses to the pull of progress; this gate does not. Claude proposes the exac
 command with the why, the learner runs it with `! <cmd>`.
 
 Gate opens when ~/.claude/.handoff-active exists. Claude creates it in one
-visible Bash call when the learner says SHIP, "run it", "take this"; removes it when
-the task ends. The session-start hook reports a leftover flag.
+visible Bash call inside a /ship task, or when the learner says "run it" for the
+commands just proposed; removes it as soon as that step or task ends. Neither
+changes the mode outside /ship. The session-start hook reports a leftover flag.
 
 Input: hook JSON on stdin ({"tool_name": "Bash", "tool_input": {"command": ...}}).
 Output: permissionDecision deny with a reason, or nothing (allow).
@@ -128,8 +129,8 @@ def main():
             "permissionDecision": "deny",
             "permissionDecisionReason": (
                 f"GATE: {reason}. Its output is evidence the learner reads first. Propose the exact command and the why; "
-                "he runs it with `! <cmd>`. If he said SHIP or handed off, open the gate in one visible call: "
-                "`touch ~/.claude/.handoff-active` (remove it when the task ends)."
+                "he runs it with `! <cmd>`. Only inside /ship, or after he said 'run it' for this command, open the "
+                "gate in one visible call: `touch ~/.claude/.handoff-active` (remove it right after)."
             ),
         }
     }))
