@@ -1,45 +1,68 @@
-# A Claude Code harness that keeps the reasoning yours
+# A Claude Code harness for getting better while building with AI
 
-The goal is to grow into a Principal Engineer while building with AI every day: the AI may write most of the code, the engineering judgment stays yours. The benchmark is Mitchell Hashimoto's whiteboard defense: pulled aside at any moment, you can walk any system you built end to end. Why X instead of Y, where the source of truth is, what happens when a dependency fails or an actor is malicious. Not line-level. The load-bearing decisions.
+The goal is to grow into a Principal Engineer while building with AI every day. The benchmark is Mitchell Hashimoto's whiteboard defense: pulled aside at any moment, you can walk any system you built end to end. Why X instead of Y, where the source of truth is, what happens when a dependency fails or an actor is malicious.
 
-This repo is the reusable part of my `~/.claude`: a behavioral contract, three hooks that enforce it, a spaced-repetition ledger convention, and a mentor skill. The private part (concept cards, mentor journals, project notes) is not here.
+This repo is the reusable part of my `~/.claude`: a behavioral contract, hooks that enforce it, a mistake log and a spaced-repetition ledger, and a mentor skill. The private part (my cards, mistakes, journals, project notes) is not here.
 
-**The one principle:** I own the reasoning, Claude owns the motion. PAIR is the permanent default; SHIP exists only inside an explicit `/ship` command and ends with its task.
+**The one principle: AI for speed on what you already own, your own hands for what you are trying to own.**
+
+## Why it looks like this
+
+The first version of this harness tried to make every AI-assisted work session also a learning session. After two months the evidence from my own journals said it did not work:
+- AI-free practice was scheduled twice and never happened.
+- The model asked cold, expert-level questions about material taught the day before.
+- Explanations stacked analogies instead of showing the mechanism.
+- The same wrong-layer mistakes kept coming back.
+
+The research points the same way:
+- **Anthropic, 2026.** Engineers learning a new library with AI scored 50% on a follow-up quiz, against 67% for those coding by hand. The gap was largest on debugging. People who used the AI only for conceptual questions and fixed their own errors scored about as well as the hand coders. ([Anthropic 2026](https://www.anthropic.com/research/AI-assistance-coding-skills))
+- **Bastani et al., PNAS 2025.** Unrestricted AI answers during practice cost students 17% on the exam taken without AI. Hints did not.
+- **Kalyuga et al. 2003, and Chen, Kalyuga & Sweller 2015.** New material with many interacting parts needs a worked example before any question. This is the expertise-reversal effect.
+- **Metcalfe 2017.** A mistake stops repeating only when the wrong reasoning itself is worked through.
+
+So version two splits the day in two:
+
+| Track | How | What it is for |
+|---|---|---|
+| **Work** | PAIR: the AI implements heavily, you take every consequential decision, a 5-minute written explain-back closes each substantial session | speed, without losing the model of what you built |
+| **Practice** | a daily 45 to 60 minute block, AI closed until your first attempt is written | getting better |
 
 ## What is in here
 
 | Path | Role |
 |---|---|
-| `CLAUDE.md` | the contract: ten invariants, modes (PAIR, LEARN, SHIP), the Frame → Decide → Build → Trace → Continue loop, retrieval eligibility, voice |
-| `skills/ship/` | the `/ship` command: the only entry into SHIP. States its scope, executes, summarizes, returns to PAIR. The model cannot invoke it |
-| `settings.json` | wires the hooks; model and plugin settings |
-| `hooks/gate-investigation.py` | PreToolUse hook: denies Claude's own kubectl, helm, flux, az, psql, ssh, terraform, remote curl unless a hand-off flag exists (`/ship`, or "run it" for one proposed command). Claude proposes the command, you run it and read the output first |
-| `hooks/session-start.py` | SessionStart hook: prints the current week, owned areas, due concept cards with their recall question, days since the last checkpoint |
-| `settings.json` UserPromptSubmit hook | re-injects the contract on every message so it survives context compaction |
-| `memory/convention.md` | the ledger: card format, five stages from encountered to transferable, promotion only on a model written from memory |
-| `docs/pedagogy/` | the PAIR playbook (`microdoses.md`) and the teaching progression (`teaching.md`) |
-| `docs/specs/2026-09-13-learning-system-rework.md` | why mechanisms instead of rules, with the research behind it |
-| `skills/mentor/` | project-tier learning: plans, journals, lessons |
+| `CLAUDE.md` | the contract: invariants, modes (PAIR, "not today", SHIP, LEARN), the work loop, the practice block, teaching rules, investigation, voice |
+| `docs/pedagogy/teaching.md` | the teaching playbook: mechanism first on real artifacts, worked example → completion → independent, questions by the age of the material, stall diagnosis, debugging loop |
+| `memory/mistakes.md` | template: one row per mistake, in your words: what you thought, why it was wrong, the repair, the layer, the next revisit date |
+| `memory/layer-map.md` | template: process → runtime → syscall → kernel → wire → remote, plus orchestrator, control plane and data store, with who owns which state. Every new concept is placed here first |
+| `memory/experiment.md` | template: a six-week experiment with metrics (practice blocks, repeat rate, a timed cold build, explain-back grades, work speed) and a decision rule. The rules stay frozen while it runs |
+| `memory/convention.md` | the card ledger: five stages from encountered to transferable, promotion only on a model written from memory |
+| `hooks/session-start.py` | prints the current week, due mistake rows and cards, practice blocks in the last 7 days, days since the last checkpoint |
+| `hooks/gate-investigation.py` | denies the AI's own kubectl, helm, flux, az, psql, ssh, terraform and remote curl unless a hand-off flag exists. The AI proposes the command; you run it and read the output first |
+| `settings.json` | wires the hooks. Its UserPromptSubmit hook re-injects the contract on every message so it survives context compaction |
+| `skills/ship/` | `/ship`: one bounded task at full speed, then back to PAIR. The model cannot invoke it |
+| `skills/mentor/` | project-tier learning: plans, chat-first lessons, written gates, journals |
 | `scripts/` | validators, link checker, secret scan, the packaging script that built this repo |
 
-## How a session runs
+## How a day runs
 
-1. Session start: the hook prints what is due. One card is asked at the first natural pause, as a generation question, never as a pop quiz.
-2. Work moves in small units, bottom-up: one new capability or system boundary at a time. Nothing is built because the mature system will probably need it.
-3. Each unit runs Frame → Decide → Build → Trace → Continue. On a consequential decision Claude asks what I am leaning toward, or gives at most two options with a recommendation, and does not build before I have weighed in. Routine, reversible implementation decisions Claude makes silently; one is surfaced only when it is surprising, hard to reverse, or changes my model of the system.
-4. Claude then implements heavily. Before the next unit I reconstruct the one or two things that matter (where input enters, where state lives, what fails), and Claude fills the gaps with a `file:line` map.
-5. Investigation keeps the loop hypothesis → evidence choice → observation → interpretation with me: I choose the evidence, Claude supplies the exact command, I run it with `! <cmd>`, read the raw output, and say what it means before Claude weighs in. A gate hook backs this up. Routine commands Claude just runs.
-6. I am only ever tested on what I decided, reasoned through, or learned. What Claude built alone is explained, not asked.
-7. `/ship <task>` hands over one bounded task at full speed. It ends with a summary and returns to PAIR by itself. "Do it" and "sounds good" never count as `/ship`.
+1. **Session start.** The hook prints what is due. One item, a mistake row or a card, is asked at the first natural pause, as a generation question.
+2. **Work.** Small units, bottom-up. On a consequential decision the AI asks what you lean toward, or gives at most two options with a recommendation. Then it builds fast. Routine choices it makes silently.
+3. **Investigation.** You choose the evidence, the AI supplies the exact command, you run it with `! <cmd>` and say what the raw output means before the AI weighs in.
+4. **"Not today".** When you need speed on one problem, the AI drives it, with no questions and no teaching detours. The gate stays closed, so you approve commands with "run it". It logs one line, symptom → cause → fix, in the mistake log. The next task is PAIR again.
+5. **Teaching.** The mechanism is shown on a real artifact (an `strace` line, a packet, a plan header), not an analogy. Then a worked example, then a half-finished problem, then one you do alone. Anything taught less than three days ago only gets a "say it back", never a cold question.
+6. **End of session.** You write a five-minute explain-back without looking; the AI reviews it.
+7. **Practice block.** You work on a build-your-own-X project, a DSA problem or a design mini. The AI stays closed until your first attempt is down.
 
 ## Adopting it
 
-- Copy `CLAUDE.md`, `settings.json`, `hooks/`, `scripts/`, `docs/`, `skills/mentor/`, `skills/ship/`, and `memory/convention.md` into `~/.claude`.
-- Replace "the learner" with your name in `settings.json` and the hooks. The name is only used in prose the hooks print.
-- Create `memory/curriculum.md` (owned areas, topic tree, current week) and `memory/index.md`. The session-start hook degrades gracefully without them; `scripts/check.sh` expects them and will report them missing until they exist.
+- Copy everything into `~/.claude`.
+- Replace "the learner" with your name in `settings.json` and the hooks. It only appears in prose the hooks print.
+- Fill in `memory/experiment.md` (dates, practice repo) and delete the example row in `memory/mistakes.md`.
+- Create `memory/curriculum.md` (owned areas, topic tree, current week) and `memory/index.md`. The hook degrades gracefully without them; `scripts/check.sh` reports them missing until they exist.
 - Run `python3 hooks/test_session_start.py` and `python3 hooks/test_gate_investigation.py`. Both use synthetic fixtures.
-- The gate's command list lives at the top of `hooks/gate-investigation.py`. Edit it to match your stack.
+- Edit the gate's command list at the top of `hooks/gate-investigation.py` to match your stack.
 
 ## What it costs
 
-Slower on exactly the pieces that carry a decision, and one unit at a time instead of the whole system at once. Implementation, searches, boilerplate, and mechanical edits run at full speed. That is the trade.
+About an hour a day of slower, AI-free first attempts, plus five minutes of writing at the end of a work session. Everything else runs at full AI speed. Whether that trade pays off is what `experiment.md` is for: measure it, do not trust the feeling. Experienced developers in [METR's 2025 study](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) were 19% slower with AI while believing they were 20% faster.

@@ -22,6 +22,8 @@ step "Hook: UserPromptSubmit command emits valid JSON"
 python3 - <<'EOF' || fail=1
 import json, subprocess
 cmd = json.load(open("settings.json"))["hooks"]["UserPromptSubmit"][0]["hooks"][0]["command"]
+# The payload sits inside echo '...': any apostrophe ends the quoting (exit 2 blocks every prompt).
+assert "'" not in cmd[len("echo '"):-1], "apostrophe inside the UserPromptSubmit echo payload"
 out = subprocess.run(["bash", "-c", cmd], capture_output=True, text=True, check=True).stdout
 ctx = json.loads(out)["hookSpecificOutput"]["additionalContext"]
 print(f"ok  UserPromptSubmit ({len(ctx)} chars)")
@@ -51,7 +53,7 @@ step "Ledger links, aliases, archive, index"
 python3 scripts/check-links.py || fail=1
 
 step "Referenced paths exist"
-for p in docs/pedagogy/microdoses.md docs/pedagogy/teaching.md memory/convention.md memory/index.md \
+for p in docs/pedagogy/teaching.md memory/mistakes.md memory/experiment.md memory/layer-map.md memory/convention.md memory/index.md \
          memory/independence.md memory/curriculum.md memory/checkpoints/checkpoints.md memory/notes/notes.md \
          hooks/gate-investigation.py hooks/test_gate_investigation.py hooks/test_session_start.py \
          docs/specs/2026-09-13-learning-system-rework.md \

@@ -6,7 +6,7 @@ by having you build it into your own real repo, milestone by milestone.
 Not a tutorial generator, and not an examiner guarding the answer key. The
 mentor audits your repo, spars with you to build a learning plan, teaches each
 milestone's concepts properly (orientation, mental model, worked example, with
-a project-grounded HTML page as the visual aid), coaches while YOU write the
+an optional HTML page when a diagram beats chat), coaches while YOU write the
 code that teaches (it may run investigations and tests for you once you have
 chosen what evidence to gather), and gates each milestone behind an
 evidence-based review: working behaviour, unaided explanation, and a "what

@@ -22,7 +22,7 @@ independence: 0-4                # optional
 **My model:** the learner's own words when they have given them; if written by
 the mentor, label it "(mentor's teaching explanation, not yet the learner's)".
 
-**Core model:** 2-4 lines: anchor analogy + technical statement + the seam.
+**Core model:** 2-4 lines: the mechanism on a concrete example + the seam.
 
 **What I currently misunderstand:** dated, specific, removed once repaired and re-shown.
 

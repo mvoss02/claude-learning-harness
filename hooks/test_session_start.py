@@ -178,6 +178,29 @@ def handoff_flag_reported():
 
 
 @case
+def mistakes_due_and_practice_week():
+    mistakes = """\
+        | Date | What I thought | Why | Repair | Layer | Next | Status |
+        |---|---|---|---|---|---|---|
+        | 2026-09-01 | handshake is syscall to kernel | x | x | wire | 2026-09-13 | open |
+        | 2026-09-02 | write means delivered | x | x | wire | 2026-09-20 | open |
+        | 2026-09-03 | old one | x | x | wire | done | done |
+        """
+    experiment = """\
+        ## Practice log
+        - 2026-09-12 done echo server
+        - 2026-09-10 skipped not today
+        - 2026-09-01 done too old
+        """
+    ctx = run_hook({"memory/curriculum.md": CURRICULUM, "memory/mistakes.md": mistakes,
+                    "memory/experiment.md": experiment})
+    assert "MISTAKES-DUE (1): handshake is syscall to kernel." in ctx, ctx
+    assert "PRACTICE last 7d: 1 done, 1 skipped" in ctx, ctx
+    ctx = run_hook({"memory/curriculum.md": CURRICULUM})
+    assert "MISTAKES-DUE (0): none." in ctx and "0 done, 0 skipped" in ctx, ctx
+
+
+@case
 def output_is_short():
     ctx = run_hook({
         "memory/curriculum.md": CURRICULUM,

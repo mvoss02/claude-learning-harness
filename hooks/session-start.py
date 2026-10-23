@@ -23,10 +23,12 @@ ACTIVE = {"introduced", "practiced", "retrievable", "transferable"}
 MAX_OWNED = 3
 
 HEADER = (
-    "Learning ledger: PAIR default, SHIP only via /ship (contract ~/.claude/CLAUDE.md, rules "
-    "~/.claude/memory/convention.md, direction ~/.claude/memory/curriculum.md). In owned areas the learner's hypothesis "
-    "or approach comes first and Claude reviews. One OWNED-DUE card is asked at the first natural boundary of a "
-    "substantive session, in generation form; 'not today' ends it for the session. Other due cards: contextual only."
+    "Learning setup: PAIR default, SHIP only via /ship, 'not today' = Claude drives one problem with the gate "
+    "closed (contract ~/.claude/CLAUDE.md, teaching ~/.claude/docs/pedagogy/teaching.md, experiment "
+    "~/.claude/memory/experiment.md). Owned areas: the learner's move first. Teach mechanism-first; nothing under "
+    "three days old is asked cold. One due item (mistake row or owned card) at the first natural boundary of a "
+    "substantive session, in generation form; 'not today' ends it for the session. End substantial sessions with "
+    "the learner's written explain-back."
 )
 
 
@@ -157,6 +159,28 @@ def checkpoint_state(now):
     return f"CHECKPOINT: last {last.isoformat()} ({days}d ago){tail}."
 
 
+def mistakes_due(now):
+    """Rows in memory/mistakes.md whose Next date (6th cell) is today or earlier."""
+    due = []
+    for line in read(os.path.join(MEM, "mistakes.md")).splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) < 7 or not re.match(r"^\d{4}-\d{2}-\d{2}$", cells[5]):
+            continue
+        if dt.date.fromisoformat(cells[5]) <= now:
+            due.append(cells[1][:90])
+    return due
+
+
+def practice_week(now):
+    """Practice-log lines in memory/experiment.md from the last 7 days: (done, skipped)."""
+    done = skipped = 0
+    for m in re.finditer(r"^- (\d{4}-\d{2}-\d{2}) (done|skipped)\b", read(os.path.join(MEM, "experiment.md")), re.M):
+        if (now - dt.date.fromisoformat(m.group(1))).days < 7:
+            done += m.group(2) == "done"
+            skipped += m.group(2) == "skipped"
+    return done, skipped
+
+
 def build(now):
     parts = [HEADER]
     try:
@@ -176,6 +200,13 @@ def build(now):
         parts.append(f"OTHER-DUE: {len(other_due)} (contextual only).")
     except Exception as e:  # noqa: BLE001
         parts.append(f"DUE: unknown ({type(e).__name__}).")
+    try:
+        md = mistakes_due(now)
+        parts.append(f"MISTAKES-DUE ({len(md)}): " + " | ".join(md[:3]) + ("." if md else "none."))
+        done, skipped = practice_week(now)
+        parts.append(f"PRACTICE last 7d: {done} done, {skipped} skipped (target 5).")
+    except Exception as e:  # noqa: BLE001
+        parts.append(f"MISTAKES/PRACTICE: unknown ({type(e).__name__}).")
     try:
         parts.append(checkpoint_state(now))
     except Exception as e:  # noqa: BLE001

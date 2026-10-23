@@ -38,6 +38,8 @@ for p in "${SHARE[@]}"; do
   cp -R "$p" "$STAGE/$p"
 done
 cp "$PUBLIC_README" "$STAGE/README.md"
+# The live mistakes/layer-map/experiment files hold private work detail; ship blank templates in their place.
+cp docs/templates/*.md "$STAGE/memory/"
 rm -f "$STAGE/docs/README.public.md"
 find "$STAGE" -name __pycache__ -type d -prune -exec rm -rf {} +
 

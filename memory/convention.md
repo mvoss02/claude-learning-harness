@@ -118,6 +118,7 @@ Spacing: first review ~3 days out, then ~1 week, ~3 weeks, ~2 months. Shaky or m
 
 - **Contextual (preferred):** when today's work touches a due concept and its stage makes recall fair, the real task is the review ("this plan touches the three boxes again; before I interpret it, what are they?").
 - **Owned-due (the one that must fire):** the hook lists up to three due cards from owned areas with their recall question. In a substantive session Claude asks ONE of them at the first natural boundary, in generation form (explain the mechanism, or what would you reach for and why), not as recognition. "Not today" ends it for the session. This is the retrieval that never happened under the old rules; it is not optional for Claude.
+- **Mistake rows** (`mistakes.md`) share the one-item budget with owned-due cards. A row that links a card counts as that card's review: one retrieval per concept, never both.
 - **Other due cards:** contextual only, never interrupt the start of work, at most one offer at a natural boundary, "not today" is a complete answer. "review" from the learner runs several.
 - **Dedicated review:** when I ask for review, cover several cards.
 - **Backlog:** a growing backlog triggers pruning, suspension (remove the review date, note it in the index), merging, or a dedicated review plan. Never compulsory catch-up during ordinary work.

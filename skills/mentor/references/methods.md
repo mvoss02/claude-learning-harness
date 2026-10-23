@@ -139,7 +139,8 @@ replace their own processing. [Chi et al. 2001; VanLehn 2011; Wittwer & Renkl 20
   missing piece (ask "which part?", or diagnose: terminology / mechanism /
   prerequisite / boundary / order / layer).
 - Then re-explain with a NEW representation: diagram, runnable toy, trace of
-  one input, analogy to something the learner holds. Pair the new one with
+  one input on a real artifact (an analogy only when the learner asks, tied
+  straight back to the mechanism, never a second one). Pair the new one with
   a familiar one; three representations at most. [Ainsworth 2006]
 - Then one small application. Never "does that make sense?"; content prompts
   ("why must this come first?") beat confidence prompts. [Bisra et al. 2018]

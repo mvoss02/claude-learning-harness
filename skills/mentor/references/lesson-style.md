@@ -1,6 +1,6 @@
 # Lesson style contract
 
-The HTML lesson is a VISUAL TEACHING AID the learner inspects and revisits. Chat is the interactive tutor: orientation happens in chat before the page, questions and exercises happen in chat after it. Reading the page is not evidence of learning.
+The HTML lesson is OPTIONAL: a visual teaching aid for diagrams and worked examples that beat chat, one screen per mechanism. Mechanism first on real artifacts, no stacked analogies (`~/.claude/docs/pedagogy/teaching.md`). Chat is the interactive tutor: orientation happens in chat before the page, questions and exercises happen in chat after it. Reading the page is not evidence of learning.
 
 One self-contained HTML file per lesson. `STATE_DIR/lessons/NNNN-<slug>.html`.
 
@@ -8,7 +8,7 @@ One self-contained HTML file per lesson. `STATE_DIR/lessons/NNNN-<slug>.html`.
 
 - Three layers in order: (a) concept, (b) this repo, (c) do-it-yourself. See `phases/lesson.md`.
 - Layer (a) opens with the problem the concept solves, then the model, then ONE worked example (toy domain or the repo's shape), then the seam. Diagrams, flows, and progressions wherever they beat prose. Worked examples are welcome; they are how a novice gets a model.
-- Short: 15-20 minutes of reading. One tangible win. Depth comes from the build phase, not lesson length.
+- Short: 5 to 10 minutes of reading. One tangible win. Depth comes from the build phase, not lesson length.
 - Layer (b) MUST quote real paths, resource names, and short excerpts from the learner's repo. Test: could this lesson have been written without reading the repo? If yes, rewrite (b).
 - Layer (c) contains no solution code for the deliverable. Constraints, definition of done, prediction prompts, doc links.
 - Cite one primary source (official docs preferred), verified current via web search, linked prominently.
