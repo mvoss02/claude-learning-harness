@@ -23,8 +23,8 @@ ACTIVE = {"introduced", "practiced", "retrievable", "transferable"}
 MAX_OWNED = 3
 
 HEADER = (
-    "Learning setup: PAIR default, SHIP only via /ship, 'not today' = Claude drives one problem with the gate "
-    "closed (contract ~/.claude/CLAUDE.md, teaching ~/.claude/docs/pedagogy/teaching.md, experiment "
+    "Learning setup: PAIR default; /mentor, /practice, /ship only when the learner types them; quick = one "
+    "message, never a mode (contract ~/.claude/CLAUDE.md, teaching ~/.claude/docs/pedagogy/teaching.md, experiment "
     "~/.claude/memory/experiment.md). Owned areas: the learner's move first. Teach mechanism-first; nothing under "
     "three days old is asked cold. One due item (mistake row or owned card) at the first natural boundary of a "
     "substantive session, in generation form; 'not today' ends it for the session. End substantial sessions with "

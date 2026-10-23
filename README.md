@@ -25,13 +25,26 @@ So version two splits the day in two:
 | Track | How | What it is for |
 |---|---|---|
 | **Work** | PAIR: the AI implements heavily, you take every consequential decision, a 5-minute written explain-back closes each substantial session | speed, without losing the model of what you built |
-| **Practice** | a daily 45 to 60 minute block, AI closed until your first attempt is written | getting better |
+| **Practice** | a 45 to 60 minute block: `/mentor` for new material, `/practice` for what you were taught, AI closed until your first attempt is written | getting better |
+
+## Four modes, one dial
+
+Every mode answers one question: who makes the first move, and for how long. Only PAIR starts without a typed command; the others are skills the model cannot invoke, so they never start from an inferred mood ("he seems in a hurry").
+
+| Mode | First move | Scope |
+|---|---|---|
+| PAIR | shared | default: work |
+| `/mentor` | you | learn new material: the AI teaches, you build, written gate |
+| `/practice` | you | retrieve and apply what you were taught; AI closed until your attempt, no teaching |
+| `/ship` | the AI | one task or problem; gate closed unless you write "gate open" |
+
+Inside PAIR there are three words, never modes: go-ahead words build the agreed slice, `quick` skips your move for one message, "not today" declines a due card or the practice block. Words cover one message only: they never switch the mode, widen the scope, skip a consequential decision, or open the gate.
 
 ## What is in here
 
 | Path | Role |
 |---|---|
-| `CLAUDE.md` | the contract: invariants, modes (PAIR, "not today", SHIP, LEARN), the work loop, the practice block, teaching rules, investigation, voice |
+| `CLAUDE.md` | the contract: invariants, the five modes, the work loop, teaching rules, investigation, voice |
 | `docs/pedagogy/teaching.md` | the teaching playbook: mechanism first on real artifacts, worked example → completion → independent, questions by the age of the material, stall diagnosis, debugging loop |
 | `memory/mistakes.md` | template: one row per mistake, in your words: what you thought, why it was wrong, the repair, the layer, the next revisit date |
 | `memory/layer-map.md` | template: process → runtime → syscall → kernel → wire → remote, plus orchestrator, control plane and data store, with who owns which state. Every new concept is placed here first |
@@ -40,7 +53,7 @@ So version two splits the day in two:
 | `hooks/session-start.py` | prints the current week, due mistake rows and cards, practice blocks in the last 7 days, days since the last checkpoint |
 | `hooks/gate-investigation.py` | denies the AI's own kubectl, helm, flux, az, psql, ssh, terraform and remote curl unless a hand-off flag exists. The AI proposes the command; you run it and read the output first |
 | `settings.json` | wires the hooks. Its UserPromptSubmit hook re-injects the contract on every message so it survives context compaction |
-| `skills/ship/` | `/ship`: one bounded task at full speed, then back to PAIR. The model cannot invoke it |
+| `skills/practice/`, `skills/ship/` | the typed modes besides `/mentor`: a retrieval block that logs itself; one bounded task or problem at full speed, gate closed by default, a fixed bug logged as a record. The model cannot invoke any of them |
 | `skills/mentor/` | project-tier learning: plans, chat-first lessons, written gates, journals |
 | `scripts/` | validators, link checker, secret scan, the packaging script that built this repo |
 
@@ -49,10 +62,10 @@ So version two splits the day in two:
 1. **Session start.** The hook prints what is due. One item, a mistake row or a card, is asked at the first natural pause, as a generation question.
 2. **Work.** Small units, bottom-up. On a consequential decision the AI asks what you lean toward, or gives at most two options with a recommendation. Then it builds fast. Routine choices it makes silently.
 3. **Investigation.** You choose the evidence, the AI supplies the exact command, you run it with `! <cmd>` and say what the raw output means before the AI weighs in.
-4. **"Not today".** When you need speed on one problem, the AI drives it, with no questions and no teaching detours. The gate stays closed, so you approve commands with "run it". It logs one line, symptom → cause → fix, in the mistake log. The next task is PAIR again.
+4. **`/ship`.** When you need speed on one task or problem, the AI takes it, with no questions and no teaching detours. The gate stays closed unless you wrote "gate open", so you approve commands with "run it". A fixed bug is logged as a record, symptom → cause → fix, that counts for repeats but is never quizzed. Then it is PAIR again.
 5. **Teaching.** The mechanism is shown on a real artifact (an `strace` line, a packet, a plan header), not an analogy. Then a worked example, then a half-finished problem, then one you do alone. Anything taught less than three days ago only gets a "say it back", never a cold question.
 6. **End of session.** You write a five-minute explain-back without looking; the AI reviews it.
-7. **Practice block.** You work on a build-your-own-X project, a DSA problem or a design mini. The AI stays closed until your first attempt is down.
+7. **Practice block.** `/mentor` when the material is new (the AI teaches, you build); `/practice` when it was taught (a DSA pattern, a design mini, a rebuild of a due mistake). The AI stays closed until your first attempt is down, then reviews it, and the block logs itself.
 
 ## Adopting it
 

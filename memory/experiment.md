@@ -10,12 +10,12 @@ metadata:
 **Question.** Does the Work/Practice split plus mechanism-first teaching make me retain concepts and stop repeating mistakes, without costing the speed I get from AI?
 
 **Changes under test.**
-- The daily practice block, AI closed until my first attempt is written.
+- The practice block: `/mentor` for new material, `/practice` for retrieval, AI closed until my first attempt is written.
 - Mechanism-first teaching with worked example → completion → independent.
 - `mistakes.md` as the main retrieval source.
 - `layer-map.md`.
 - A written explain-back at the end of substantial sessions.
-- "Not today" for speed.
+- `/ship` (gate closed by default) for speed on one task or problem, `quick` for one message.
 
 **Practice repo.** `<path to the repo where practice blocks happen>`
 

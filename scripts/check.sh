@@ -57,7 +57,7 @@ for p in docs/pedagogy/teaching.md memory/mistakes.md memory/experiment.md memor
          memory/independence.md memory/curriculum.md memory/checkpoints/checkpoints.md memory/notes/notes.md \
          hooks/gate-investigation.py hooks/test_gate_investigation.py hooks/test_session_start.py \
          docs/specs/2026-09-13-learning-system-rework.md \
-         skills/ship/SKILL.md skills/mentor/SKILL.md skills/mentor/phases/intake.md \
+         skills/ship/SKILL.md skills/practice/SKILL.md skills/mentor/SKILL.md skills/mentor/phases/intake.md \
          skills/mentor/phases/build.md skills/mentor/phases/lesson.md skills/mentor/phases/review.md \
          skills/mentor/phases/wrapup.md skills/mentor/references/learning-tree.md \
          skills/mentor/references/plan-format.md skills/mentor/references/rubric.md \
@@ -66,7 +66,7 @@ for p in docs/pedagogy/teaching.md memory/mistakes.md memory/experiment.md memor
 done
 
 step "Stale wording sweep (should print nothing)"
-if grep -rnE 'not skippable|cannot be deferred|no deferral|once per area|exactly once per plan|Three or more new terms|1 to 3 recall questions|Predictions before commands|only measurement|main path to .transferable|runs at the next session start|two-sentence say-back before use|SHIP this|said SHIP|says SHIP|say SHIP|whiteboard pickup|[Dd]ecision ledger first|Take the rest|take the rest|listed in a line|list each in a line|lists in a line each|immediately runs|raw Docker before Compose|and runs it\.' \
+if grep -rnE 'not skippable|cannot be deferred|no deferral|once per area|exactly once per plan|Three or more new terms|1 to 3 recall questions|Predictions before commands|only measurement|main path to .transferable|runs at the next session start|two-sentence say-back before use|SHIP this|said SHIP|says SHIP|say SHIP|whiteboard pickup|[Dd]ecision ledger first|Take the rest|take the rest|listed in a line|list each in a line|lists in a line each|immediately runs|raw Docker before Compose|and runs it\.|need speed|not-today bug|/drive|skills/drive' \
      CLAUDE.md docs/pedagogy memory/convention.md memory/solo.md memory/independence.md hooks skills/mentor README.md settings.json; then
   echo "stale wording found"; fail=1
 else

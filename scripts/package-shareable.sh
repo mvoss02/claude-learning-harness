@@ -23,6 +23,7 @@ SHARE=(
   docs/specs/2026-09-13-learning-system-rework.md
   skills/mentor/
   skills/ship/
+  skills/practice/
   memory/convention.md
 )
 # The public README differs from the private one (no review views, no private places).
