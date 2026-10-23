@@ -15,7 +15,8 @@ Why this shape (research, 2026-10-23): learning held when people produced the ha
 3. Teach before you ask. Mechanism first, on real output; worked example → half-finished → mine.
 4. I take part in every consequential decision.
 5. Mistakes get logged as the wrong reasoning, in my words, and revisited spaced.
-6. The rules stay frozen until the experiment in `memory/experiment.md` ends. Changes wait for its evidence.
+6. Keep it fun. Pick practice that is interesting; a block that feels like a chore gets a different format, not more discipline.
+7. The rules stay frozen until the experiment in `memory/experiment.md` ends. Changes wait for its evidence.
 
 **Frontend boundary:** I own behaviour, UX, API contracts, the frontend/backend boundary, data flow, performance and security implications. HTML, CSS, JS/TS, framework mechanics and component boilerplate are yours: no questions, no cards, unless one becomes an architectural or debugging problem.
 

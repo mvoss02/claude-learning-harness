@@ -65,7 +65,7 @@ Inside PAIR there are three words, never modes: go-ahead words build the agreed 
 4. **`/ship`.** When you need speed on one task or problem, the AI takes it, with no questions and no teaching detours. The gate stays closed unless you wrote "gate open", so you approve commands with "run it". A fixed bug is logged as a record, symptom → cause → fix, that counts for repeats but is never quizzed. Then it is PAIR again.
 5. **Teaching.** The mechanism is shown on a real artifact (an `strace` line, a packet, a plan header), not an analogy. Then a worked example, then a half-finished problem, then one you do alone. Anything taught less than three days ago only gets a "say it back", never a cold question.
 6. **End of session.** You write a five-minute explain-back without looking; the AI reviews it.
-7. **Practice block.** `/mentor` when the material is new (the AI teaches, you build); `/practice` when it was taught (a DSA pattern, a design mini, a rebuild of a due mistake). The AI stays closed until your first attempt is down, then reviews it, and the block logs itself.
+7. **Practice block.** `/mentor` when the material is new (the AI teaches, you build); `/practice` when it was taught (a DSA pattern, a design mini, a rebuild of a due mistake, or a review drill: the AI writes code with seeded defects and you find them cold, which trains telling when the AI is wrong). The AI stays closed until your first attempt is down, then reviews it, and the block logs itself.
 
 ## Adopting it
 
