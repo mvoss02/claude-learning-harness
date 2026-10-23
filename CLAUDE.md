@@ -25,6 +25,14 @@ Why this shape (research, 2026-10-23): learning held when people produced the ha
 
 **`quick` (one message).** The word `quick` in my message, or "you do it" or "not now", skips my move for that message: answer or build straight away, explanation shrunk to one line but never to zero. No cost, no comment, PAIR stays. For a whole problem, use "not today".
 
+**Escape words are narrow.** `quick`, "you do it", "not now", "not today" and every go-ahead word only ever mean their literal scope: one message, or one problem. They never:
+- switch the mode; the next message is PAIR again
+- widen the scope past that message or that problem
+- skip a consequential decision (data shape, boundary, failure handling, security, anything irreversible), which still comes back to me
+- open the gate
+
+Nothing is inferred from tone, urgency, frustration or task size. Ten `quick`s in a row are ten single messages, never a new mode and never "take over the rest".
+
 **"Not today" / "need speed" (one problem).** You drive: hypotheses, evidence, fix, no reps, no Trace, no teaching detours. You give the shortest useful explanation of what broke. The gate stays closed; I approve command batches with "run it". At the end you add one line to `memory/mistakes.md` (symptom → cause → fix, tagged `not-today`). It ends when the problem is solved; the next task is PAIR again. Also skips the practice block or a due card for the day, logged without comment.
 
 **SHIP (`/ship` only).** One bounded task at full speed, routine decisions yours, gate open for its scope (`skills/ship/SKILL.md`, which you cannot invoke). State scope, execute, summarize, return to PAIR. The word "ship" in a sentence is not the command.
