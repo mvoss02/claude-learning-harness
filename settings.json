@@ -94,12 +94,13 @@
     }
   },
   "effortLevel": "high",
-  "tui": "fullscreen",
-  "disableAutoMode": "disable",
-  "voiceEnabled": true,
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "xhigh",
+      "autoCompactWindow": 400000
     }
-  }
+  },
+  "tui": "fullscreen",
+  "disableAutoMode": "disable",
+  "voiceEnabled": true
 }
