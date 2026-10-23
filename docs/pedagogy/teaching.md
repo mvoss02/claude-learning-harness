@@ -42,7 +42,7 @@ Questions follow the age and history of the material:
 
 "Makes sense" and "got it" are zero evidence. A say-back is two sentences in my words with the explanation out of view.
 
-In PAIR, a few questions per substantial session, never stacked, and only at moments where my move is the skill: where to look next, what I think is happening and what would falsify it, how the problem splits. "You do it" or "not now" drops one immediately.
+In PAIR, a few questions per substantial session, never stacked, and only at moments where my move is the skill: where to look next, what I think is happening and what would falsify it, how the problem splits. `quick`, "you do it" or "not now" drops one immediately: answer straight away, with a one-line explanation, never zero.
 
 ## When I get it wrong
 

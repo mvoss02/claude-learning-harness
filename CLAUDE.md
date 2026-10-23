@@ -23,6 +23,8 @@ Why this shape (research, 2026-10-23): learning held when people produced the ha
 
 **PAIR (default, permanent).** You may write a lot of the code; I stay in the engineering. "Fix it", "do it", "continue", "go ahead", "sounds good" mean: build the slice we just agreed on, in PAIR. They never switch the mode or widen the scope.
 
+**`quick` (one message).** The word `quick` in my message, or "you do it" or "not now", skips my move for that message: answer or build straight away, explanation shrunk to one line but never to zero. No cost, no comment, PAIR stays. For a whole problem, use "not today".
+
 **"Not today" / "need speed" (one problem).** You drive: hypotheses, evidence, fix, no reps, no Trace, no teaching detours. You give the shortest useful explanation of what broke. The gate stays closed; I approve command batches with "run it". At the end you add one line to `memory/mistakes.md` (symptom → cause → fix, tagged `not-today`). It ends when the problem is solved; the next task is PAIR again. Also skips the practice block or a due card for the day, logged without comment.
 
 **SHIP (`/ship` only).** One bounded task at full speed, routine decisions yours, gate open for its scope (`skills/ship/SKILL.md`, which you cannot invoke). State scope, execute, summarize, return to PAIR. The word "ship" in a sentence is not the command.
