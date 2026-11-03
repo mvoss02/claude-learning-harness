@@ -27,8 +27,10 @@ HEADER = (
     "message, never a mode (contract ~/.claude/CLAUDE.md, teaching ~/.claude/docs/pedagogy/teaching.md, experiment "
     "~/.claude/memory/experiment.md). Owned areas: the learner's move first. Teach mechanism-first; nothing under "
     "three days old is asked cold. One due item (mistake row or owned card) at the first natural boundary of a "
-    "substantive session, in generation form; 'not today' ends it for the session. End substantial sessions with "
-    "the learner's written explain-back."
+    "substantive session, in generation form; 'not today' ends it for the session. Explain-back only after a unit "
+    "that was taught and that the learner built, decided or read through; research, sparring and housekeeping sessions "
+    "get none. Code Claude wrote that stays in his deliverable is read through by the learner (three lines in his words) "
+    "before it counts as done."
 )
 
 
@@ -80,18 +82,19 @@ def recall_question(text):
 
 
 def curriculum():
-    """Return {week, owned: [areas], week_line} from memory/curriculum.md; empty values when absent.
-    week_line is the `- week N: ...` entry matching the current week (nodes, dsa pattern, design work)."""
+    """Return {unit, week, owned: [areas], week_line} from memory/curriculum.md; empty values when absent.
+    unit is the key the file uses for its position, `week` or `arc` (default week).
+    week_line is the `- <unit> N: ...` entry matching the current position (nodes, build, design work)."""
     text = read(os.path.join(MEM, "curriculum.md"))
-    out = {"week": "", "owned": [], "week_line": ""}
-    m = re.search(r"^week:\s*(.+?)\s*$", text, re.M)
+    out = {"unit": "week", "week": "", "owned": [], "week_line": ""}
+    m = re.search(r"^(week|arc):\s*(.+?)\s*$", text, re.M)
     if m:
-        out["week"] = m.group(1)
+        out["unit"], out["week"] = m.group(1), m.group(2)
     m = re.search(r"^owned:\s*(.+?)\s*$", text, re.M)
     if m:
         out["owned"] = [a.strip() for a in m.group(1).split(",") if a.strip()]
     if re.match(r"^\d+$", out["week"]):
-        m = re.search(r"^- week " + out["week"] + r":\s*(.+?)\s*$", text, re.M)
+        m = re.search(r"^- " + out["unit"] + " " + out["week"] + r":\s*(.+?)\s*$", text, re.M)
         if m:
             out["week_line"] = m.group(1)
     return out
@@ -186,10 +189,11 @@ def build(now):
     try:
         cur = curriculum()
         week = cur["week"] or "unknown"
+        unit = cur["unit"].upper()
         owned = cur["owned"]
-        parts.append(f"WEEK: {week}. OWNED: {', '.join(owned) if owned else 'none set'}.")
+        parts.append(f"{unit}: {week}. OWNED: {', '.join(owned) if owned else 'none set'}.")
         if cur["week_line"]:
-            parts.append(f"THIS WEEK: {cur['week_line']} (work touching these nodes is the rep; checkpoints may target them).")
+            parts.append(f"THIS {unit}: {cur['week_line']} (work touching these nodes is the rep; checkpoints may target them).")
         owned_due, other_due = due_cards(now, set(owned))
         if owned_due:
             shown = owned_due[:MAX_OWNED]

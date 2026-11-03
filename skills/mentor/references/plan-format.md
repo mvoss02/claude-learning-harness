@@ -1,5 +1,7 @@
 # PLAN.md format
 
+Milestones are deliverables, not topics ("remote state configured and verified", not "learn state"). Counts per size, early-unit counting and the primitive-first rule: `references/learning-tree.md`, "Mission sizing" and "Synthesis". Progression, unknowns budget and the finish line: `references/progression.md`.
+
 ```markdown
 # Learning plan: <technology> via <repo>
 
@@ -19,12 +21,8 @@ doesn't today. Ground every lesson and milestone in this.>
 <Interference map, when the learner is expert in a neighbouring technology: 4 to 6 "old says X, new says Y" points. Each becomes a predict-from-the-old-model moment in the milestone that touches it.>
 
 ## Finish line
-<One sentence: "I can independently design, implement, test, debug, and explain
-a <medium-sized thing> using documentation, without an LLM framing the problem."
-Then the evidence list: demonstrable acts that would show it (blank repo,
-structure, data and errors, tests, tooling, reading unfamiliar code, trade-offs,
-a transfer project with little scaffolding). Framed as "independently capable at
-a meaningful project scale", not mastery. references/progression.md>
+<One sentence in the shape given in references/progression.md, "Finish line",
+then the evidence list of demonstrable acts.>
 
 ## Capabilities to own
 <From intake: which skills the learner wants as their own competence at the end (e.g. "design the module layout myself", "debug plan diffs unaided") vs merely operate. Independence levels are tracked for these. This section is the retention filter for the whole plan: progress notes, incident details, and decisions below are project history and evidence, not material the learner must retain or be quizzed on. Sparring, exams, and transfer target these capabilities and the milestone's ledger concepts only.>
@@ -33,9 +31,8 @@ Curriculum: <`<area>/<node>` from `~/.claude/memory/curriculum.md` (cards review
 
 ## Learning tree
 <Root = mission. Branches = areas. Leaves = concepts with prerequisite edges,
-ledger stage today, and the milestone that teaches them. Built from research
-sized to the mission (references/learning-tree.md); a small mission may hold a
-flat list here instead of a tree. Approved by the learner on <YYYY-MM-DD>.>
+ledger stage today, and the milestone that teaches them. A small mission may
+hold a flat list here instead of a tree. Approved by the learner on <YYYY-MM-DD>.>
 - <Area A>: <why it matters for the mission>
   - <concept-slug> (stage: encountered | introduced | ... ; prereq: <slug> | none) → M1
   - <concept-slug> (...) → M2
@@ -50,11 +47,9 @@ Sources: <primary source link> · <best curriculum found>
 - <concept> | why the mission does not need it (revisit if: <condition>)
 
 ## Milestones
-<Ordered by stage: early units (one model, one piece of syntax or tooling, one
-guided and one independent application each) → middle features (combine known
-concepts) → later features (ambiguous, learner-framed) → transfer sessions.
-Units may be numbered separately from features (G0..Gn, then M1..Mn); numbering
-is free, the progression is not. references/progression.md>
+<Ordered by stage: early units → middle features → later features → transfer
+sessions (references/progression.md). Units may be numbered separately from
+features (G0..Gn, then M1..Mn); numbering is free, the progression is not.>
 
 ### <id>: <deliverable name>
 - Stage: early | middle | later | transfer  · Format: project | lab | transfer
@@ -71,13 +66,3 @@ is free, the progression is not. references/progression.md>
 <Meaningful choices made along the way.>
 - <date> <decision> | alternatives: <...> | why: <...> | tradeoffs: <...>
 ```
-
-Rules: milestones are deliverables, not topics ("remote state configured and
-verified", not "learn state"). Roughly one milestone for a small mission, three
-to five features for medium, four to seven for large; early units are counted
-separately and may be many when the technology is new (a learner new to a
-language may need five or six units before the first feature). More than seven
-features means the mission is too big, split it. Primitive-first ordering
-where the primitive is cheap; when a primitive would combine several unknowns
-(hand-rolled crypto in a new language), use the library in the project and put
-the primitive in a lab.

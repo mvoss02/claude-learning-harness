@@ -1,6 +1,6 @@
 ---
 name: experiment
-description: "Six-week learning experiment: Work/Practice split, mechanism-first teaching, mistake log, layer map. Metrics, baselines, weekly check, decision rule. Rules are frozen until it ends."
+description: "Six-week learning experiment: Work/Practice split, mechanism-first teaching, mistake log, layer map. Metrics, baselines, weekly check, decision rule. Rule changes logged one at a time with a dated line."
 metadata:
   type: project
 ---
@@ -14,12 +14,12 @@ metadata:
 - Mechanism-first teaching with worked example → completion → independent.
 - `mistakes.md` as the main retrieval source.
 - `layer-map.md`.
-- A written explain-back at the end of substantial sessions.
+- A read-through of AI-written code (three lines in my words) and a written explain-back after units I was taught and built.
 - `/ship` (gate closed by default) for speed on one task or problem, `quick` for one message.
 
 **Practice repo.** `<path to the repo where practice blocks happen>`
 
-**Frozen.** No changes to CLAUDE.md, `docs/pedagogy/teaching.md` or the mentor skill until <end date>, except bug fixes. Ideas go in "Parked" below.
+**Rule changes.** Allowed one at a time, each with a dated line and its reason here, so the final read can tell the split's effect from the changes' effect. Ideas not yet decided go in "Parked" below.
 
 ## Metrics
 
@@ -34,7 +34,7 @@ metadata:
 **Decision rule at week 6.**
 - If the repeat rate and cold build time haven't improved: raise the share of hand coding.
 - If work speed dropped noticeably: shrink the practice block.
-- If both improved: keep it, and unfreeze the rules for targeted changes only.
+- If both improved: keep it; later rule changes only against a measured gap.
 
 ## Weekly check (5 minutes)
 

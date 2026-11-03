@@ -91,6 +91,15 @@ def current_week_line_printed_only_when_week_is_numeric():
 
 
 @case
+def arc_position_reads_arc_lines():
+    arcs = CURRICULUM.replace("week: 3", "arc: 1").replace("- week 2:", "- arc 1:").replace("- week 3:", "- arc 2:")
+    ctx = run_hook({"memory/curriculum.md": arcs})
+    assert "ARC: 1. OWNED: databases, networking-distributed." in ctx, ctx
+    assert "THIS ARC: networking-distributed/request-path; dsa: strings; design: outbound client; exit: timeouts in layers" in ctx, ctx
+    assert "WEEK" not in ctx, ctx
+
+
+@case
 def recall_question_drops_trailing_answer_parenthetical():
     ctx = run_hook({
         "memory/curriculum.md": CURRICULUM,

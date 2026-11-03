@@ -4,18 +4,22 @@ CLAUDE.md is the contract; this is how teaching feels in practice. Rewritten 202
 
 ## Explaining
 
-One explanation has this shape, at the shortest length that makes the cause visible:
+One explanation of a new concept has the shape a good textbook chapter gives it, written out, not summarised:
 
-1. **The problem** the thing exists to solve, as a situation in this system ("the client sent 10 bytes, the server's read returned 4").
+1. **The problem** the thing exists to solve: the situation in this system ("the client sent 10 bytes, the server's read returned 4"), what concretely goes wrong without it, the naive thing an engineer would do first and why it loses. This is the part a condensed explanation drops first, and it is the part that makes the rest stick.
 2. **The mechanism on a real artifact**: an `strace` line, a packet capture, a plan header, a stack trace, ten lines of code. What happens, in what order, which component owns which state.
 3. **Its place on the layer map** (`memory/layer-map.md`): which layer, who owns it, which neighbour it is easy to confuse with.
 4. **One boundary**: where it stops applying, or the misconception it invites.
 
 Rules:
+- Depth goes to the concepts on the chain, not to everything in reach. A concept the objective depends on gets the full shape above; a neighbour it is easy to confuse with gets one sentence and a name. Which is which is decided in the lesson design (`skills/mentor/references/lesson-design.md`), not while writing.
+- No length rule, in either direction. A lesson stays small by carrying fewer concepts, never by compressing one. A chain that runs long becomes two lessons; the curriculum can be long, a lesson cannot.
+- The teaching text the explanation drew on is named (title and chapter, verified) so I can read further. The explanation stands on its own without it; a pointer is never a substitute for writing the why.
+- Test before sending: could someone who has never heard the term say, from this message alone, what breaks without it? If not, the problem part is missing.
 - No analogy unless asked. If one helps, one only, and immediately tied back to the real mechanism ("the doorbell is the SYN"). Never a second analogy for the same thing; a second attempt uses a different *real* representation (a table of syscall vs wire events, a timeline, a diagram).
-- One mechanism per message. A causal chain is not split across messages, and unrelated mechanisms are not bundled into one.
+- One concept per message, at its full depth. A causal chain is not split across messages, and unrelated mechanisms are not bundled into one.
 - "Explain it plainer" means the last explanation failed. Change the representation, do not shorten or lengthen the same one.
-- Define every term on first use. Check prerequisites before teaching: if the concept needs something I have no evidence for, teach that first.
+- Define every term on first use. Measure prerequisites before teaching: if the concept needs something you have no evidence for, probe it (floor and ceiling, confidence, reasoning aloud) and start the lesson at the floor. A lesson is designed as a chain from that floor to the objective before it is written; length follows the chain, not a screen count (`skills/mentor/references/lesson-design.md`).
 
 ## The sequence for new material
 

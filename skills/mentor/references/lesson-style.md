@@ -1,26 +1,23 @@
-# Lesson style contract
+# Lesson page contract
 
-The HTML lesson is OPTIONAL: a visual teaching aid for diagrams and worked examples that beat chat, one screen per mechanism. Mechanism first on real artifacts, no stacked analogies (`~/.claude/docs/pedagogy/teaching.md`). Chat is the interactive tutor: orientation happens in chat before the page, questions and exercises happen in chat after it. Reading the page is not evidence of learning.
+The HTML lesson is OPTIONAL: a visual teaching aid for diagrams and worked examples that beat chat, one concept per screen. Chat is the interactive tutor: orientation happens in chat before the page, questions and exercises happen in chat after it (`phases/lesson.md`). Reading the page is not evidence of learning. How a concept is explained is SKILL.md "Explaining"; this file is only what the page must and must not contain.
 
 One self-contained HTML file per lesson. `STATE_DIR/lessons/NNNN-<slug>.html`.
 
 ## Content rules
 
-- Three layers in order: (a) concept, (b) this repo, (c) do-it-yourself. See `phases/lesson.md`.
-- Layer (a) opens with the problem the concept solves, then the model, then ONE worked example (toy domain or the repo's shape), then the seam. Diagrams, flows, and progressions wherever they beat prose. Worked examples are welcome; they are how a novice gets a model.
-- Short: 5 to 10 minutes of reading. One tangible win. Depth comes from the build phase, not lesson length.
+- Three layers in order: (a) concept, (b) this repo, (c) do-it-yourself, as specified in `phases/lesson.md` step 4. Diagrams, flows, and progressions wherever they beat prose; worked examples are how a novice gets a model.
+- No length rule on a concept or the page; a long chain → split into two lessons, never compress. One tangible win per lesson. Depth comes from the treatment; practice comes from the build.
 - Layer (b) MUST quote real paths, resource names, and short excerpts from the learner's repo. Test: could this lesson have been written without reading the repo? If yes, rewrite (b).
 - Layer (c) contains no solution code for the deliverable. Constraints, definition of done, prediction prompts, doc links.
-- Cite one primary source (official docs preferred), verified current via web search, linked prominently.
+- Per concept, name the teaching text the explanation drew on (title and chapter name, verified via web search) and link the official docs for the mechanism, prominently. The page stands without them; they are for going further, never a substitute for writing the why.
 - End with: "Ask your mentor when anything is unclear" and links to prior lessons for interleaving.
 
 ## No questions in the page
 
 The page explains; the chat asks. No multiple-choice blocks, no quizzes, no predict-then-reveal widgets, no answer keys in the HTML. Reasons: a quiz in a document is recognition with the answer one click away, nobody can diagnose a wrong pick, and the page gets revisited as a cheat sheet, so embedded answers poison later retrieval.
 
-What the page may contain instead: the worked example with its reasoning visible, diagrams, and in layer (c) the DIY spec with "before you run X, commit a prediction in chat" pointers (the question is named, the answer is not on the page).
-
-Questions happen in chat, after the page, per `phases/lesson.md` step 5. Open questions first. Multiple choice is allowed THERE as a second-choice format (when the open answer was vague, or to discuss distractors after a correct answer): 3 to 4 options, learner picks one and says why, then the distractors get discussed (each wrong option encodes a specific misconception; name it). Never a bare "correct!". Print-only value of the page stays intact: it must read well on paper with no scripts.
+What the page may contain instead: the worked example with its reasoning visible, diagrams, and in layer (c) the DIY spec with "before you run X, commit a prediction in chat" pointers (the question is named, the answer is not on the page). Print-only value of the page stays intact: it must read well on paper with no scripts.
 
 ## Visual rules
 

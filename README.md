@@ -24,7 +24,7 @@ So version two splits the day in two:
 
 | Track | How | What it is for |
 |---|---|---|
-| **Work** | PAIR: the AI implements heavily, you take every consequential decision, a 5-minute written explain-back closes each substantial session | speed, without losing the model of what you built |
+| **Work** | PAIR: the AI implements heavily, you take every consequential decision, you read through and say back every piece of AI-written code that stays in your deliverable, and a 5-minute written explain-back closes a unit you were taught and built | speed, without losing the model of what you built |
 | **Practice** | a 45 to 60 minute block: `/mentor` for new material, `/practice` for what you were taught, AI closed until your first attempt is written | getting better |
 
 ## Four modes, one dial
@@ -48,7 +48,7 @@ Inside PAIR there are three words, never modes: go-ahead words build the agreed 
 | `docs/pedagogy/teaching.md` | the teaching playbook: mechanism first on real artifacts, worked example → completion → independent, questions by the age of the material, stall diagnosis, debugging loop |
 | `memory/mistakes.md` | template: one row per mistake, in your words: what you thought, why it was wrong, the repair, the layer, the next revisit date |
 | `memory/layer-map.md` | template: process → runtime → syscall → kernel → wire → remote, plus orchestrator, control plane and data store, with who owns which state. Every new concept is placed here first |
-| `memory/experiment.md` | template: a six-week experiment with metrics (practice blocks, repeat rate, a timed cold build, explain-back grades, work speed) and a decision rule. The rules stay frozen while it runs |
+| `memory/experiment.md` | template: a six-week experiment with metrics (practice blocks, repeat rate, a timed cold build, explain-back grades, work speed) and a decision rule. Rule changes are allowed one at a time, each with a dated line, so the final read can tell their effect from the split's |
 | `memory/convention.md` | the card ledger: five stages from encountered to transferable, promotion only on a model written from memory |
 | `hooks/session-start.py` | prints the current week, due mistake rows and cards, practice blocks in the last 7 days, days since the last checkpoint |
 | `hooks/gate-investigation.py` | denies the AI's own kubectl, helm, flux, az, psql, ssh, terraform and remote curl unless a hand-off flag exists. The AI proposes the command; you run it and read the output first |
@@ -60,12 +60,13 @@ Inside PAIR there are three words, never modes: go-ahead words build the agreed 
 ## How a day runs
 
 1. **Session start.** The hook prints what is due. One item, a mistake row or a card, is asked at the first natural pause, as a generation question.
-2. **Work.** Small units, bottom-up. On a consequential decision the AI asks what you lean toward, or gives at most two options with a recommendation. Then it builds fast. Routine choices it makes silently.
+2. **Work.** Small units, bottom-up. A unit that needs a concept you have not been taught waits for the lesson. On a consequential decision the AI asks what you lean toward, or gives at most two options with a recommendation. Then it builds fast. Routine choices it makes silently. Code it wrote that stays in your deliverable is not done until you have read it: a short reading guide, then three lines in your words (what it does, where its state lives, where it fails), then the `file:line` map. Only what you built, decided, or read and said back can ever be asked about.
 3. **Investigation.** You choose the evidence, the AI supplies the exact command, you run it with `! <cmd>` and say what the raw output means before the AI weighs in.
 4. **`/ship`.** When you need speed on one task or problem, the AI takes it, with no questions and no teaching detours. The gate stays closed unless you wrote "gate open", so you approve commands with "run it". A fixed bug is logged as a record, symptom → cause → fix, that counts for repeats but is never quizzed. Then it is PAIR again.
 5. **Teaching.** The mechanism is shown on a real artifact (an `strace` line, a packet, a plan header), not an analogy. Then a worked example, then a half-finished problem, then one you do alone. Anything taught less than three days ago only gets a "say it back", never a cold question.
-6. **End of session.** You write a five-minute explain-back without looking; the AI reviews it.
+6. **Explain-back, when earned.** After a unit you were taught and built, decided or read through, you write a five-minute explain-back without looking, from your own say-backs; the AI reviews it. Research, sparring and housekeeping sessions get none: nothing of yours was built, so there is nothing to defend.
 7. **Practice block.** `/mentor` when the material is new (the AI teaches, you build); `/practice` when it was taught (a DSA pattern, a design mini, a rebuild of a due mistake, or a review drill: the AI writes code with seeded defects and you find them cold, which trains telling when the AI is wrong). The AI stays closed until your first attempt is down, then reviews it, and the block logs itself.
+8. **Replication checkpoint, every few weeks.** One finished unit of a real project is rebuilt from a blank directory with no AI, as a practice block, and diffed against the real one. It is the only honest measure of whether you could rebuild the system without the AI; the gaps it shows become the next lessons.
 
 ## Adopting it
 
@@ -78,4 +79,4 @@ Inside PAIR there are three words, never modes: go-ahead words build the agreed 
 
 ## What it costs
 
-About an hour a day of slower, AI-free first attempts, plus five minutes of writing at the end of a work session. Everything else runs at full AI speed. Whether that trade pays off is what `experiment.md` is for: measure it, do not trust the feeling. Experienced developers in [METR's 2025 study](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) were 19% slower with AI while believing they were 20% faster.
+About an hour a day of slower, AI-free first attempts, plus a read-through and five minutes of writing after each unit you built. Everything else runs at full AI speed. Whether that trade pays off is what `experiment.md` is for: measure it, do not trust the feeling. Experienced developers in [METR's 2025 study](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/) were 19% slower with AI while believing they were 20% faster.

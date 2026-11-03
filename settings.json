@@ -11,7 +11,7 @@
     ],
     "defaultMode": "default"
   },
-  "model": "opus",
+  "model": "fable",
   "hooks": {
     "PostToolUse": [
       {
@@ -67,7 +67,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"UserPromptSubmit\", \"additionalContext\": \"PAIR is the default and sticky, normal voice, no long dashes. Four modes on one dial of who moves first: PAIR (shared, default, work), /mentor (the learner first, learn new material), /practice (the learner first, retrieve taught material, AI closed until his attempt, no teaching), /ship (Claude first, one task or problem, gate closed unless the invocation says gate open). Each starts only when the learner types the slash command and ends by itself with Back in PAIR. Inside PAIR three words, never modes: go-ahead words build the agreed slice; quick (or you do it, not now) skips the move of the learner for that one message, one-line explanation, never zero; not today declines a due card or the practice block. Words cover one message only: they never switch the mode, never widen the scope, never skip a consequential decision, never open the gate; nothing is inferred from tone, urgency or repetition, and ten quicks are ten single messages. Work loop: Frame one small unit bottom-up, Decide (consequential choices: ask what the learner leans toward first or two options with a recommendation; routine choices silent), Build fast, Trace (one question on what the learner decided, then a file:line map). End of every substantial session Claude initiates a 5-minute written explain-back by the learner, reviewed after. Teaching: mechanism first on a real artifact, no analogy unless asked, place it on memory/layer-map.md, worked example then completion then independent. Material under three days old gets only say-back or worked-example steps, never cold questions; a miss after teaching is a teaching failure. One mechanism per message. Owned areas (debugging-loop, databases, networking-distributed): the learner moves first. Investigation: the learner chooses evidence, Claude gives the exact command, the learner runs it and reads raw output first, then Claude challenges. Gate: run it opens ~/.claude/.handoff-active for the proposed commands only, removed right after. Mistakes go to memory/mistakes.md (what the learner thought, in the words of the learner). One due mistake row or owned card at the first natural boundary, in generation form. Rules frozen until the experiment in memory/experiment.md ends.\"}}'"
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"UserPromptSubmit\", \"additionalContext\": \"PAIR is the default and sticky, normal voice, no long dashes. Four modes on one dial of who moves first: PAIR (shared, default, work), /mentor (the learner first, learn new material), /practice (the learner first, retrieve taught material, AI closed until his attempt, no teaching), /ship (Claude first, one task or problem, gate closed unless the invocation says gate open). Each starts only when the learner types the slash command and ends by itself with Back in PAIR. Inside PAIR three words, never modes: go-ahead words build the agreed slice; quick (or you do it, not now) skips the move of the learner for that one message, one-line explanation, never zero; not today declines a due card or the practice block. Words cover one message only: they never switch the mode, never widen the scope, never skip a consequential decision, never open the gate; nothing is inferred from tone, urgency or repetition, and ten quicks are ten single messages. Work loop: Frame one small unit bottom-up, Decide (consequential choices: ask what the learner leans toward first or two options with a recommendation; routine choices silent), Build fast, Trace (code Claude wrote that stays in the deliverable: reading guide, then the learner writes three lines in his words, what it does, where state lives, where it fails; then the file:line map; one reconstruction question only on what the learner decided). A unit that needs an untaught concept waits for the lesson. Explain-back only after a unit that was taught and that the learner built, decided or read through, drawing on his own say-backs; research, sparring and housekeeping sessions get none. Only what the learner built, decided, or read and said back is ever asked. Teaching: mechanism first on a real artifact, no analogy unless asked, place it on memory/layer-map.md, worked example then completion then independent. Material under three days old gets only say-back or worked-example steps, never cold questions; a miss after teaching is a teaching failure. One mechanism per message. Owned areas (debugging-loop, databases, networking-distributed): the learner moves first. Investigation: the learner chooses evidence, Claude gives the exact command, the learner runs it and reads raw output first, then Claude challenges. Gate: run it opens ~/.claude/.handoff-active for the proposed commands only, removed right after. Mistakes go to memory/mistakes.md (what the learner thought, in the words of the learner). One due mistake row or owned card at the first natural boundary, in generation form. Rules frozen until the experiment in memory/experiment.md ends.\"}}'"
           }
         ]
       }
@@ -83,7 +83,8 @@
     "frontend-design@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "gopls-lsp@claude-plugins-official": true
+    "gopls-lsp@claude-plugins-official": true,
+    "clangd-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -101,6 +102,10 @@
     }
   },
   "tui": "fullscreen",
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
   "disableAutoMode": "disable",
   "voiceEnabled": true
 }

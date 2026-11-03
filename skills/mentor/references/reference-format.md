@@ -69,11 +69,6 @@ deliverable itself.
 Appended as the build reveals traps or design families that were missing.
 ```
 
-## Review language
-
-- "This is a valid design. It optimises for X and introduces Y." Then the
-  trade-off discussion.
-- Reject only for a violated invariant, requirement, safety property, or an
-  explicit learning constraint the learner agreed to (e.g. "stdlib only in
-  this lab"). Say which one.
-- Never "that is not the intended structure".
+Review language against this reference: `references/rubric.md`, "Design
+evaluation". An agreed learning constraint (e.g. "stdlib only in this lab")
+is recorded here under Invariants so a rejection can name it.

@@ -4,9 +4,11 @@ A Claude Code skill: a principal-engineer mentor that teaches you a technology
 by having you build it into your own real repo, milestone by milestone.
 
 Not a tutorial generator, and not an examiner guarding the answer key. The
-mentor audits your repo, spars with you to build a learning plan, teaches each
-milestone's concepts properly (orientation, mental model, worked example, with
-an optional HTML page when a diagram beats chat), coaches while YOU write the
+mentor audits your repo, spars with you to build a learning plan, measures
+where you actually stand before each lesson, teaches each milestone's concepts
+at textbook depth (the problem, what breaks without it, the naive alternative,
+the mechanism, a worked example, with an optional HTML page when a diagram
+beats chat), coaches while YOU write the
 code that teaches (it may run investigations and tests for you once you have
 chosen what evidence to gather), and gates each milestone behind an
 evidence-based review: working behaviour, unaided explanation, and a "what
@@ -58,8 +60,9 @@ for free.
   topic-organized concept ledger), concept cards are written there instead of
   `concepts/`, so one spaced-repetition system covers everything you learn.
 - **caveman plugin**: composes; caveman compresses chrome (pleasantries,
-  filler), and the mentor's explanations are already short units. Compression
-  must never remove a model, a worked example, or a re-explanation.
+  filler), and the mentor's explanations carry one concept each. Compression
+  must never remove a model, a worked example, the problem a concept solves,
+  or a re-explanation.
 - **SessionStart hook** (opt-in): surface due reviews when you open a shell.
   Add to `~/.claude/settings.json` hooks:
 
@@ -88,12 +91,19 @@ for free.
   demonstrated; a card existing never means the concept is known. A resumed
   session starts with "where were we, what did we establish?", not a quiz.
 - Help is adaptive, per concept, never by seniority: prerequisites are
-  checked before every lesson, a stall is diagnosed before it is helped
+  measured before every lesson (a short probe per strand, floor and ceiling,
+  confidence on every answer), the lesson is designed as a chain from that
+  floor before any text is written, a stall is diagnosed before it is helped
   (productive difficulty, missing prerequisite, unclear explanation, too
   many unknowns, slip, fatigue), and a re-explanation changes representation
-  instead of repeating words. One coherent chunk at a time, as long as the
-  causal model needs and no longer. You can change the format at any moment
+  instead of repeating words. You can change the format at any moment
   ("explain directly", "worked example", "let me try", "harder").
+- Textbook depth, one concept at a time: every concept on the lesson's chain
+  gets the problem it solves, what breaks without it, the naive alternative
+  and why it loses, the mechanism on a real artifact, a worked example and a
+  boundary, written into the lesson and sourced from the canonical teaching
+  text (named by title and chapter). No length rule in either direction; a
+  lesson stays small by carrying fewer concepts, never by compressing one.
 - Slow, fine-grained beginnings: a new technology starts as small units (one
   model, one piece of syntax or tooling, one guided and one independent
   application), each carrying one or two unknowns, before features combine
